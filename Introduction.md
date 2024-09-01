@@ -1,7 +1,9 @@
 **사회를 이롭게 하는 AI 엔지니어, 김주연**
 
 Research Interest: Computer Vision, Machine Learning
+
 Major: BSc in Data Science (Seoul Women's University)
+
 GPA: 4.12/4.5
 
 [**Projects**]
