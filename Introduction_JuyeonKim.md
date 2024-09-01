@@ -42,4 +42,12 @@ KSIIS2024 "머신러닝 기반 축구 수비수 이적료"/ 2024년 11월  KSIIS
 
 [**Tech Stack**]
 
-Python: 중상, SQL(MariaDB): 중, Streamlit: 중, Tableau: 중, Figma: 중
+- Python: 중상
+  
+- SQL(MariaDB): 중
+  
+- Streamlit: 중
+  
+- Tableau: 중
+  
+- Figma: 중
