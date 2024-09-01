@@ -1,4 +1,5 @@
 **사회를 이롭게 하는 AI 엔지니어, 김주연**
+
 Research Interest: Computer Vision, Machine Learning
 Major: BSc in Data Science (Seoul Women's University)
 GPA: 4.12/4.5
@@ -16,8 +17,8 @@ AI 기반 유망 인플루언서 발굴 및 매칭 플랫폼 개발/ 담당 파�
 * 전과정은 데이터 수집, 전처리, 모델링, 시각화의 데이터 사이언스 파이프라인 전과정을 말합니다.
 
 [**Thesis**]
-ACK2023  "거리 기반 반려견 긴급 수혈 매칭 알고리즘 및 어플리케이션 개발"/2023 ACK/ 링크: 
-ACK2023  "AI 기반 유망 인플루언서 발굴 및 매칭 플랫폼 개발"/2023 ACK/ 링크: 
+ACK2023  "거리 기반 반려견 긴급 수혈 매칭 알고리즘 및 어플리케이션 개발"/2023 ACK/ KIPS_C2023B0286
+ACK2023  "AI 기반 유망 인플루언서 발굴 및 매칭 플랫폼 개발"/2023 ACK/ KIPS_C2023B0287
 KSIIS2024 "머신러닝 기반 축구 수비수 이적료"/ 2024년 11월  KSIIS 학회 발표 예정
 
 [**Awards**]
