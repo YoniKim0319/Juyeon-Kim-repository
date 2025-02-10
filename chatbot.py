@@ -1,24 +1,11 @@
 import streamlit as st
-import os
-import subprocess
+from transformers import pipeline
 
-# transformers 라이브러리가 설치되어 있는지 확인하고, 없다면 설치
-try:
-    from transformers import pipeline
-except ImportError:
-    # GitHub에서 transformers 라이브러리 클론
-    subprocess.run(["git", "clone", "https://github.com/huggingface/transformers.git"])
-    # 디렉토리 변경
-    os.chdir('transformers')
-    # transformers 라이브러리 설치
-    subprocess.run(["pip", "install", "."])
-    # 설치 후 import
-    from transformers import pipeline
-
-# 질문-답변 파이프라인 한 번만 초기화
+# 질문-답변 파이프라인 초기화
 qa_pipeline = pipeline("question-answering")
 
 def get_answer(question):
+    # 질문에 따라 다른 컨텍스트를 제공
     if "귤 껍데기" in question:
         context = "귤 껍데기는 음식물 쓰레기에 버려야 합니다."
     elif "오존층" in question:
@@ -33,7 +20,7 @@ def get_answer(question):
         return f"오류가 발생했습니다: {str(e)}"
 
 # 스트림릿 앱 생성
-st.title("환경 관련 챗봇")
+st.title("환경 챗봇 프로토타입")
 user_question = st.text_input("질문을 입력해 주세요:")
 
 if user_question:
