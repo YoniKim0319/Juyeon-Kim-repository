@@ -1,4 +1,5 @@
 import streamlit as st
+import transformers
 from transformers import pipeline
 
 # 질문-답변 파이프라인 초기화
