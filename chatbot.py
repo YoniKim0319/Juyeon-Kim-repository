@@ -1,5 +1,16 @@
 import streamlit as st
 
+def create_chat_bubble(text, is_user=True):
+    """채팅 버블 스타일을 생성하는 함수입니다."""
+    color = "light" if is_user else "success"
+    st.markdown(
+        f"<div style='background-color: {'#f0f2f6' if is_user else '#dbf0d8'}; padding: 10px; border-radius: 25px; width: fit-content; "
+        f"max-width: 70%; margin: {'10px 20px 10px auto' if is_user else '10px auto 10px 20px'}; text-align: left; float: {'right' if is_user else 'left'};'>"
+        f"<span style='color: black;'>{text}</span>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
 # 사전에 정의된 질문과 답변
 recycling_faq = {
     "우유팩": "우유팩은 재활용이 가능합니다. 내용물을 깨끗이 비우고, 잘 헹군 후 말려서 재활용 쓰레기통에 버려주세요.",
@@ -13,25 +24,33 @@ recycling_faq = {
     "스티로폼": "흰색 스티로폼 포장용기는 재활용 가능합니다. 음식물이나 이물질이 많이 묻어 있거나 코팅된 스티로폼은 재활용할 수 없습니다.",
     "비닐류": "위생팩, 과자 라면 봉지 등은 비닐류로 분류되어 목요일에만 배출이 가능합니다. 이물질이 묻어 있는 경우 재활용할 수 없습니다.",
     "의류": "의류는 의류수거함 또는 투명 비닐에 담아 배출합니다. 솜이불류는 재활용할 수 없습니다.",
-    "재활용 안 되는 품목": "유리조각, 도자기류, 비닐장판, 화학섬유, 신발, 가죽제품, 코팅된 물질, CD, 깨진 폐형광등, 소량의 건축폐기물 등은 특수규격 마대에 넣어서 배출해야 합니다."
+    "재활용 안 되는 품목": "PVC 제품, FRP, 공업용 플라스틱, 폐비닐, 석고, 어린이 장난감, 부스러기 스티로폼, 유리조각, 가방류, 도자기, 비닐장판, 신발, 가죽제품, 코팅된 물질, CD, 깨진 폐형광등, 고무호스, 카세트·비디오테이프, 옷걸이, 페인트 통, 사용한 도배지는 특수규격 마대에 담아 배출해야 합니다."
 }
 
 def get_answer(question):
-    # 질문에서 키워드 추출
+    # 질문에서 키워드 추출하여 답변하는 로직
     for keyword in recycling_faq:
-        if keyword in question:
+        if keyword.lower() in question.lower():
             return recycling_faq[keyword]
     return "해당 질문에 대한 답변을 찾을 수 없습니다. 더 구체적인 질문을 해주세요."
 
-# 스트림릿 앱 생성
+# 스트림릿 앱 생성 및 설정
 st.title("쓰레기 분리수거 FAQ 챗봇")
 st.subheader("쓰레기 분리수거에 대한 궁금증을 해결해드립니다. 질문을 입력해주세요!")
 
-user_question = st.text_input("", placeholder="예: 귤 껍질은 어디에 버려야 하나요?")
+user_question = st.text_input("", placeholder="예: 귤 껍질은 어디에 버려야 하나요?", key="user_input")
 
-if user_question:
+if st.button("질문하기"):
+    create_chat_bubble(user_question, is_user=True)
     answer = get_answer(user_question)
-    st.success("답변: " + answer)
+    create_chat_bubble(answer, is_user=False)
 
-# UI 디자인 요소 추가
-st.image("https://source.unsplash.com/600x300/?nature,recycling", caption="Let's recycle right!")
+# 페이지 초기화용
+if st.button("채팅 초기화"):
+    st.experimental_rerun()
+
+# 스크롤을 항상 아래로 유지 (JavaScript 활용)
+st.markdown(
+    "<script>window.scrollTo(0, document.body.scrollHeight);</script>",
+    unsafe_allow_html=True
+)
