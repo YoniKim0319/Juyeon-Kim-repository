@@ -1,29 +1,37 @@
 import streamlit as st
-import transformers
-from transformers import pipeline
 
-# 질문-답변 파이프라인 초기화
-qa_pipeline = pipeline("question-answering")
+# 사전에 정의된 질문과 답변
+recycling_faq = {
+    "우유팩": "우유팩은 재활용이 가능합니다. 내용물을 깨끗이 비우고, 잘 헹군 후 말려서 재활용 쓰레기통에 버려주세요.",
+    "귤 껍질": "귤 껍질은 음식물 쓰레기입니다. 음식물 쓰레기 전용 쓰레기통에 버려주세요.",
+    "종이류": "신문지, 책류, 종이상자류, 봉투류, 포장지는 재활용 가능합니다. 비닐 코팅된 종이류, 테이프, 기타 이물질이 섞인 경우, 영수증, 파쇄지는 재활용할 수 없습니다.",
+    "종이컵, 종이팩": "이물질이나 음식물이 묻어 있지 않은 경우에만 재활용이 가능합니다.",
+    "고철류": "고철, 알루미늄, 철판은 재활용 가능합니다. 고무나 플라스틱이 합성된 제품은 재활용할 수 없습니다.",
+    "유리병류": "맥주, 소주, 음료수, 드링크병류는 재활용 가능합니다. 병뚜껑을 제거하고 내용물을 헹군 후에 배출하세요. 식기류, 도자기류, 깨진 유리는 재활용할 수 없습니다.",
+    "캔류": "음료수 캔, 부탄가스, 에어졸 캔은 재활용이 가능합니다. 구멍을 뚫어 내용물을 완전히 비우고 배출하세요. 페인트나 오일이 묻어있는 캔은 재활용할 수 없습니다.",
+    "플라스틱류": "PET, PE, PP, PS, PSP 재질의 용기는 재활용이 가능합니다. 투명 페트병은 별도로 분리배출해야 합니다.",
+    "스티로폼": "흰색 스티로폼 포장용기는 재활용 가능합니다. 음식물이나 이물질이 많이 묻어 있거나 코팅된 스티로폼은 재활용할 수 없습니다.",
+    "비닐류": "위생팩, 과자 라면 봉지 등은 비닐류로 분류되어 목요일에만 배출이 가능합니다. 이물질이 묻어 있는 경우 재활용할 수 없습니다.",
+    "의류": "의류는 의류수거함 또는 투명 비닐에 담아 배출합니다. 솜이불류는 재활용할 수 없습니다.",
+    "재활용 안 되는 품목": "유리조각, 도자기류, 비닐장판, 화학섬유, 신발, 가죽제품, 코팅된 물질, CD, 깨진 폐형광등, 소량의 건축폐기물 등은 특수규격 마대에 넣어서 배출해야 합니다."
+}
 
 def get_answer(question):
-    # 질문에 따라 다른 컨텍스트를 제공
-    if "귤 껍데기" in question:
-        context = "귤 껍데기는 음식물 쓰레기에 버려야 합니다."
-    elif "오존층" in question:
-        context = "오존층이 아예 없어지면 지구에 도달하는 자외선의 양이 증가하여 피부암, 백내장 등 건강 문제와 생태계에 심각한 영향을 미칠 수 있습니다."
-    else:
-        context = "자세한 정보를 제공해주세요."
-    
-    try:
-        answer = qa_pipeline(question=question, context=context)
-        return answer['answer']
-    except Exception as e:
-        return f"오류가 발생했습니다: {str(e)}"
+    # 질문에서 키워드 추출
+    for keyword in recycling_faq:
+        if keyword in question:
+            return recycling_faq[keyword]
+    return "해당 질문에 대한 답변을 찾을 수 없습니다. 더 구체적인 질문을 해주세요."
 
 # 스트림릿 앱 생성
-st.title("환경 챗봇 프로토타입")
-user_question = st.text_input("질문을 입력해 주세요:")
+st.title("쓰레기 분리수거 FAQ 챗봇")
+st.subheader("쓰레기 분리수거에 대한 궁금증을 해결해드립니다. 질문을 입력해주세요!")
+
+user_question = st.text_input("", placeholder="예: 귤 껍질은 어디에 버려야 하나요?")
 
 if user_question:
     answer = get_answer(user_question)
-    st.write("답변:", answer)
+    st.success("답변: " + answer)
+
+# UI 디자인 요소 추가
+st.image("https://source.unsplash.com/600x300/?nature,recycling", caption="Let's recycle right!")
